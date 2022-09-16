@@ -5,7 +5,7 @@ See the developer notes at the end.
 ## Technologies used
 
  - Being a react based project, it was created using [create-react-app](https://create-react-app.dev/), so it includes all the basic scripts for a react app.
- - The component library used was [Material UI for React](https://mui.com/) in its major version 5, including [material-icons](https://mui.com/material-ui/material-icons/), [material datepickers](https://mui.com/x/react-date-pickers/getting-started/) and the corresponding libraries that material uses for stylin, based on [emotion](https://emotion.sh/docs/introduction).
+ - The components library used was [Material UI for React](https://mui.com/) in its major version 5, including [material-icons](https://mui.com/material-ui/material-icons/), [material datepickers](https://mui.com/x/react-date-pickers/getting-started/) and the corresponding libraries that material uses for styling, based on [emotion](https://emotion.sh/docs/introduction).
  - For working with dates, [moment.js](https://momentjs.com/) library was included.
  - All dependencies were installed using [yarn package manager](https://yarnpkg.com/).
 
@@ -35,6 +35,6 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 
 - The city selector component displays images but they might take some seconds to charge depending on the client internet speed.
 
-- There's a style issue with cities selector component **Multiselect**, it grows to a multiline form and it was taking too long to fix the issue, so I thooght it was not worth the time-result ratio.
+- There's a style issue with cities selector component **Multiselect**, it grows to a multiline form and it was taking too long to fix the issue, so I thought it was not worth the time-result ratio.
 
 - I could'nt figure out what happened when the form was submitted because the site always notified me that my country was restricted to do such action, so I just mocked it with a dialog and console logged  the form values.
