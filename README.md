@@ -1,4 +1,5 @@
 # FRONT10 TECHNICAL EXERCISE (DEV)
+See the developer notes below
 
 ## Available Scripts
 
@@ -33,5 +34,6 @@ Instead, it will copy all the configuration files and the transitive dependencie
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
 ### Developer Notes
- - The city selector component displays images but they might take some seconds to charge depending on the client internet speed
- - There's a style issue with cities selector component **Multiselector**, it grows to a multiline form and I was taking too long to fix the issues, It was not worth the time-result ratio.
+ - The city selector component displays images but they might take some seconds to charge depending on the client internet speed.
+ - There's a style issue with cities selector component **Multiselector**, it grows to a multiline form and it was taking too long to fix the issue, It was not worth the time-result ratio.
+ - I could'nt figure out what happened when the form was submitted because the site always notified me that my country was restricted to do such action, so I just mocked it with a dialog and and console log with the form values.
