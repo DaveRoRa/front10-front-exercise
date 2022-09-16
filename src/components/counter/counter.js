@@ -26,7 +26,27 @@ const ControlButton = ({ isMinus, disabled, handleClick }) => {
   );
 };
 
-const Counter = ({ name, subText, value, onChange, maxDisabled }) => {
+/**
+ * Component that shows a number and two buttons on each side of the
+ * number to control decrement it or increment it. The minus button
+ * is automatically disabled if the number reach 0, the plus button
+ * only if maxDisabled = true.
+ */
+const Counter = ({
+  //Field (bold text) to which the amount displayed belongs
+  name,
+  //Brief explanation of the field name
+  subText,
+  //Amount
+  value,
+  //Function to increment or decrement the value by one:
+  //(name, isPlus). Name is the same prop name, and isPlus
+  //indicates if the amount must be incremented in case it's
+  //truthy and decremented if falsy
+  onChange,
+  //Value from which the add button is disabled
+  maxDisabled,
+}) => {
   return (
     <Grid width={500} padding={2} container>
       <Grid item xs={8}>

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -42,19 +41,23 @@ const BootstrapDialogTitle = (props) => {
   );
 };
 
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-};
-
-export default function CustomizedDialogs({ open, closeDialog }) {
+//Dialog component to simulate trip booking
+const CustomizedDialogs = ({
+  //Indicates if the Dialog is open = true, or
+  //not open = false
+  open,
+  //Function to close the Dialog, it doesn't
+  //have arguments
+  closeDialog,
+}) => {
   return (
     <div>
-      <BootstrapDialog onClose={closeDialog} aria-labelledby="dialog-trip-booked" open={open}>
-        <BootstrapDialogTitle
-          id="dialog-title"
-          onClose={closeDialog}
-        >
+      <BootstrapDialog
+        onClose={closeDialog}
+        aria-labelledby="dialog-trip-booked"
+        open={open}
+      >
+        <BootstrapDialogTitle id="dialog-title" onClose={closeDialog}>
           Success
         </BootstrapDialogTitle>
         <DialogContent dividers>
@@ -70,4 +73,6 @@ export default function CustomizedDialogs({ open, closeDialog }) {
       </BootstrapDialog>
     </div>
   );
-}
+};
+
+export default CustomizedDialogs;

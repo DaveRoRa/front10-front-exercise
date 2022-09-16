@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import AddIcon from "@mui/icons-material/Add";
 import SearchButton from "../searchButton/searchButton";
 
+//This component only renders when Multi-city is selected
 const MulticityButtonUtils = ({ submit, addRow, clearAll }) => {
   return (
     <Box display="flex" alignContent="center" flexDirection="row">

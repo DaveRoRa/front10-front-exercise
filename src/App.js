@@ -22,6 +22,7 @@ const economyOptions = [
 
 const tripOptions = ["One-way", "Round-trip", "Multi-city", "Trip Builder"];
 
+//Replace an element in an array
 function replaceAt(array, index, value) {
   const ret = array.slice(0);
   ret[index] = value;
@@ -29,6 +30,7 @@ function replaceAt(array, index, value) {
 }
 
 function App() {
+  //General State
   const [state, setState] = useState({
     trip: "Round-trip",
     economy: "Economy",
@@ -43,15 +45,25 @@ function App() {
       "Infants on lap": 0,
     },
   });
+  //Form with the flight data, its structure depends on the flight type.
+  //It can be a plain object when flight type is "One-way" or "Round-trip"
+  //or an object array when flight type is "Multi-city"
   const [form, setForm] = useState(initialStateByFormType[state.trip]);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
 
+  //Simulates booking a trip
   const sendFlightForm = () => {
+    console.log("Trip data", { ...state, flightData: form });
     setIsOpenDialog(true);
   };
 
+  //Function to change form state when it's an array
   const changeMultipleForm = (flight, index) => {
     setForm((prev) => {
+      //If a destination is added in a row and the
+      //field "from" is empty on the next one, this is
+      //filled with the value of the "to" field of
+      //its predecessor
       if (
         !prev[index].to &&
         flight.to &&
@@ -69,14 +81,17 @@ function App() {
     });
   };
 
+  //Add a new row when flight type is "Multi-city"
   const addFlight = () => {
     setForm((prev) => [...prev, initialStateByFormType["Multi-city"]]);
   };
 
+  //Remove the current row when flight type is "Multi-city"
   const removeFlight = (index) => {
     setForm((prev) => prev.filter((_, i) => i !== index));
   };
 
+  //Clean all fields in all rows when flight type is "Multi-city"
   const clearAll = () => {
     setForm((prev) =>
       Array.from(
@@ -86,8 +101,20 @@ function App() {
     );
   };
 
-  const handleChange = (newValue, field) => {
+  //Change the value of state
+  const handleChange = (
+    //New value
+    newValue,
+    //Name of the field to change with the new value
+    field
+  ) => {
     if (
+      //It changes the trip property to "Multi-city" whether
+      //"Multi-city" is selected on flight type or "Multiple"
+      //is selected on travel class. Values of economy field
+      //(travel class) and bags are undefined since they're not
+      //needed when flight type is "Multi-city". It also changes
+      //the flight form from an object to an array
       state.trip !== "Multi-city" &&
       ((field === "economy" && newValue === "Multiple") ||
         (field === "trip" && newValue === "Multi-city"))
@@ -103,7 +130,12 @@ function App() {
         initialStateByFormType["Multi-city"],
         initialStateByFormType["Multi-city"],
       ]);
-    } else if (
+    }
+    //If flight class is changed from "Multi-city"
+    //to any other it restores the form state to an
+    //non array object and bags and economy field are
+    //setted to their initial values
+    else if (
       state.trip === "Multi-city" &&
       field === "trip" &&
       newValue !== "Multi-city"
@@ -114,12 +146,15 @@ function App() {
         economy: "Economy",
         bags: { "Carry-on bag": 0, "Checked bag": 0 },
       }));
-    } else {
+    }
+    //In any other case it just change the state
+    else {
       setState((prev) => ({ ...prev, [field]: newValue }));
     }
   };
 
   return (
+    //This Provider is for DatePicker componentes
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <Box width="100%">
         <Typography variant="h2" fontWeight={700} component="h1" gutterBottom>
@@ -145,6 +180,10 @@ function App() {
             </>
           ) : null}
         </Box>
+        {/*If trip (flight type) is "Multi-city" an array of row of individual forms 
+        for flights is rendered, that's why form state is changed to an array of objects.
+        If trip (flight type) is not "Multi-city" just one individual form for flight
+        is rendered and form state is changed to a non array object*/}
         {state.trip === "Multi-city" ? (
           <>
             {form.map((singleFlight, i) => (
@@ -167,7 +206,9 @@ function App() {
             submit={sendFlightForm}
           />
         )}
-
+        {/* This group of buttons are not rendered unless trip (flight type) is "Multi-city",
+        because in those cases the submit button is already rendered by FlightSingleForm
+        and the other two buttons are just useful when there are several rows for flights */}
         {state.trip === "Multi-city" && (
           <MulticityButtonUtils
             submit={sendFlightForm}

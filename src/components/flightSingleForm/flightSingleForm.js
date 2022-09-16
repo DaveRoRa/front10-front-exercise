@@ -7,6 +7,7 @@ import DatePicker from "../datepicker/datepicker";
 import Multiselect from "../originDestinySelector/multiselect";
 import SearchButton from "../searchButton/searchButton";
 import SelectModality from "../selectModality/selectModality";
+
 const economyOptions = ["Economy", "Premium Economy", "Business", "First"];
 
 export const initialStateByFormType = {
@@ -29,12 +30,23 @@ export const initialStateByFormType = {
   },
 };
 
+//This components renders one form row per flight
 const FlightSingleForm = ({
+  //Indicates whether the trip is "One-way", "Round-trip" or "Multi-city"
+  //and renders the corresponding inputs in dependency
   tripType,
+  //Function to change the value asigned to the component
+  //in the general state, it has only one argument, the new
+  //value of the form
   onChange,
+  //Value asigned to the component in the parent's state
   value,
+  //Function to submit the form, it has no arguments
   submit,
+  //If true doesn't show the close button next to each flight
+  //row
   hideCloseButton,
+  //Function to remove one row when the tripType is "Multi-city"
   removeFlight,
 }) => {
   const [flight, setFlight] = useState(value);
@@ -58,6 +70,7 @@ const FlightSingleForm = ({
     setFlight((prev) => ({ ...prev, [field]: newValue }));
   };
 
+  //Swaps "from" and "to" values
   const changeOriginDestiny = () => {
     setFlight((prev) => ({
       ...prev,
@@ -85,6 +98,7 @@ const FlightSingleForm = ({
         onChange={handleChange}
         isSingle={formType === "Multi-city"}
       />
+
       <DatePicker
         value={flight.departure}
         name="departure"

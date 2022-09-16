@@ -27,7 +27,7 @@ const possibleErrors = {
   maxAdults: "Searches cannot have more than 9 adults",
   maxLapInfants: "Searches cannot have more lap infants than adults",
   minTraveler: "Searches need at least 1 traveler",
-  studentValidation: "Student validation required"
+  studentValidation: "Student validation required",
 };
 
 const getHasError = (nextState, nextTotal) => {
@@ -40,7 +40,16 @@ const getHasError = (nextState, nextTotal) => {
   return "";
 };
 
-export default function TravelersMenu({value, onChange}) {
+//Component to Select the number of passenger on each flight
+export default function TravelersMenu({
+  //Function to change the value asigned to the component
+  //in the form, it has two arguments (newValue, name)
+  //"newValue" is the new value to asign to the equivalent
+  //field in the form, the field name must be "travelers"
+  onChange,
+  //Value asigned to the component in the form
+  value,
+}) {
   const [total, setTotal] = useState(getTotal(value));
   const [error, setError] = useState("");
 

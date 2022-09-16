@@ -6,11 +6,21 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Typography from "@mui/material/Typography";
 import Counter from "../counter/counter";
 
-export default function BagsMenu({onChange, value}) {
+//Component to Select the number of bags per passenger on each flight.
+//It doesn't renders when the flight type is "Multi-city"
+export default function BagsMenu({
+  //Function to change the value asigned to the component
+  //in the form, it has two arguments (newValue, name)
+  //"newValue" is the new value to asign to the equivalent
+  //field in the form, the field name must be "bags"
+  onChange,
+  //Value asigned to the component in the form
+  value,
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const Arrow = open ? KeyboardArrowUpIcon : KeyboardArrowDownIcon;
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

@@ -34,3 +34,5 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ### Developer Notes
  - The city selector component displays images but they might take some seconds to charge depending on the client internet speed
+ - There's a style issue with cities selector component **Multiselector**, it grows to a multiline form and I was taking too long to fix the issues, It was not worth the time-result ratio.
+ - 
