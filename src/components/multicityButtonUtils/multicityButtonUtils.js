@@ -6,7 +6,14 @@ import SearchButton from "../searchButton/searchButton";
 //This component only renders when Multi-city is selected
 const MulticityButtonUtils = ({ submit, addRow, clearAll }) => {
   return (
-    <Box display="flex" alignContent="center" flexDirection="row">
+    <Box
+      display="flex"
+      alignContent="center"
+      justifyContent="space-between"
+      flexDirection="row"
+      pr={3}
+      pl={1}
+    >
       <Box display="flex" alignContent="center" mr={5}>
         <Button
           sx={{ color: "black" }}

@@ -41,7 +41,14 @@ const DatePicker = ({
       shouldDisableDate={(day) => limitDate(day, upperLimit)}
       value={value}
       onChange={(newVal) => onChange(newVal, name)}
-      renderInput={(params) => <TextField {...params} />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          sx={{
+            width: "100%",
+          }}
+        />
+      )}
     />
   );
 };

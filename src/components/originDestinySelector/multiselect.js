@@ -30,7 +30,7 @@ const Multiselect = ({
       id={name}
       multiple={!isSingle}
       sx={{
-        width: "300px",
+        width: "100%",
       }}
       options={cityList}
       disableCloseOnSelect

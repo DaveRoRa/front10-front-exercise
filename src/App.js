@@ -1,5 +1,7 @@
+import "./App.css";
 import { useState } from "react";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import Typography from "@mui/material/Typography";
@@ -157,29 +159,43 @@ function App() {
     //This Provider is for DatePicker componentes
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <Box width="100%">
-        <Typography variant="h2" fontWeight={700} component="h1" gutterBottom>
+        <Typography
+          textAlign="center"
+          variant="h2"
+          fontWeight={700}
+          component="h1"
+          gutterBottom
+        >
           Search Hundreds of travel sites at once.
         </Typography>
-        <Box display="flex" flexDirection="row">
-          <SelectModality
-            options={tripOptions}
-            name="trip"
-            onChange={handleChange}
-            value={state.trip}
-          />
-          <TravelersMenu onChange={handleChange} value={state.travelers} />
+        <Grid p={1} container spacing={2}>
+          <Grid item xs={6} md={3}>
+            <SelectModality
+              options={tripOptions}
+              name="trip"
+              onChange={handleChange}
+              value={state.trip}
+            />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <TravelersMenu onChange={handleChange} value={state.travelers} />
+          </Grid>
           {state.trip === "One-way" || state.trip === "Round-trip" ? (
             <>
-              <SelectModality
-                options={economyOptions}
-                name="economy"
-                value={state.economy}
-                onChange={handleChange}
-              />
-              <BagsMenu onChange={handleChange} value={state.bags} />
+              <Grid item xs={6} md={3}>
+                <SelectModality
+                  options={economyOptions}
+                  name="economy"
+                  value={state.economy}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={6} md={3}>
+                <BagsMenu onChange={handleChange} value={state.bags} />
+              </Grid>
             </>
           ) : null}
-        </Box>
+        </Grid>
         {/*If trip (flight type) is "Multi-city" an array of row of individual forms 
         for flights is rendered, that's why form state is changed to an array of objects.
         If trip (flight type) is not "Multi-city" just one individual form for flight

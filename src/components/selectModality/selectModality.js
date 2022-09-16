@@ -40,7 +40,7 @@ const SelectModality = ({
   };
 
   return (
-    <div>
+    <>
       <Button
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
@@ -49,8 +49,8 @@ const SelectModality = ({
         onClick={handleClick}
         sx={{
           color: "black",
-          width: "200px",
-          height: "100%",
+          width: "100%",
+          height: "50px",
           border: isFormElement && "2px solid lightgray",
         }}
         endIcon={<Arrow fontSize="large" />}
@@ -72,7 +72,7 @@ const SelectModality = ({
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </>
   );
 };
 

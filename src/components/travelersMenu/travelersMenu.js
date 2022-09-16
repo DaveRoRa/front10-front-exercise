@@ -83,7 +83,7 @@ export default function TravelersMenu({
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black", width: "200px" }}
+        sx={{ color: "black", width: "100%", height: "50px" }}
         endIcon={<Arrow fontSize="large" />}
       >
         {`${total} passenger(s)`}
@@ -97,23 +97,25 @@ export default function TravelersMenu({
           "aria-labelledby": "travelers-button",
         }}
       >
-        {countersEx.map((item) => (
-          <Counter
-            name={item.name}
-            subText={item.subText}
-            value={value[item.name]}
-            key={item.name}
-            onChange={handleChange}
-          />
-        ))}
-        {error || value["Students"] ? (
-          <>
-            <Divider variant="middle" />
-            <Alert severity="warning" color="error">
-              {error || possibleErrors.studentValidation}
-            </Alert>
-          </>
-        ) : null}
+        <div>
+          {countersEx.map((item) => (
+            <Counter
+              name={item.name}
+              subText={item.subText}
+              value={value[item.name]}
+              key={item.name}
+              onChange={handleChange}
+            />
+          ))}
+          {error || value["Students"] ? (
+            <>
+              <Divider variant="middle" />
+              <Alert severity="warning" color="error">
+                {error || possibleErrors.studentValidation}
+              </Alert>
+            </>
+          ) : null}
+        </div>
       </Menu>
     </div>
   );

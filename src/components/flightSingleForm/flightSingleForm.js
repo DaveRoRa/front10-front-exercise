@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
+import GridMui from "@mui/material/Grid";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import ChangeButton from "../changeButton/changeButton";
@@ -29,6 +29,57 @@ export const initialStateByFormType = {
     economy: "Economy",
   },
 };
+
+const getGridMultiselect = (type) => {
+  switch (type) {
+    case "One-way":
+      return { xs: 13, sm: 6, md: 4, lg: 4 };
+    case "Round-trip":
+      return { xs: 16, sm: 7, md: 4, lg: 4 };
+
+    default:
+      return { xs: 28, md: 14, lg: 7 };
+  }
+};
+
+const getGridSwap = (type) => {
+  if (type === "One-way") return { xs: 13, sm: 1 };
+  return { xs: 16, sm: 2, md: 1 };
+};
+
+const getGridDate = (type) => {
+  switch (type) {
+    case "One-way":
+      return { xs: 13, sm: 12, md: 3, lg: 3 };
+    case "Round-trip":
+      return { xs: 16, sm: 7, md: 3, lg: 3 };
+
+    default:
+      return { xs: 14, sm: 12, md: 13, lg: 6 };
+  }
+};
+
+const getGridSearch = (type) => {
+  if (type === "One-way") return { xs: 13, sm: 1 };
+  return { xs: 16, sm: 2, md: 1 };
+};
+
+const getColumns = (type) => {
+  switch (type) {
+    case "One-way":
+      return 13;
+    case "Round-trip":
+      return 16;
+    default:
+      return 28;
+  }
+};
+
+const Grid = ({ children, ...res }) => (
+  <GridMui display="flex" justifyContent="center" item {...res}>
+    {children}
+  </GridMui>
+);
 
 //This components renders one form row per flight
 const FlightSingleForm = ({
@@ -80,62 +131,94 @@ const FlightSingleForm = ({
   };
 
   return (
-    <Box display="flex" p={1} gap={1} flexWrap="wrap">
-      <Multiselect
-        value={flight.from}
-        name="from"
-        label="From"
-        onChange={handleChange}
-        isSingle={formType === "Multi-city"}
-      />
-      {formType === "One-way" || formType === "Round-trip" ? (
-        <ChangeButton onClick={changeOriginDestiny} />
-      ) : null}
-      <Multiselect
-        value={flight.to}
-        name="to"
-        label="To"
-        onChange={handleChange}
-        isSingle={formType === "Multi-city"}
-      />
-
-      <DatePicker
-        value={flight.departure}
-        name="departure"
-        label="Departure"
-        onChange={handleChange}
-      />
-      {formType === "Round-trip" && (
-        <DatePicker
-          value={flight.back}
-          name="back"
-          label="Return"
+    <GridMui
+      p={1}
+      maxWidth="100%"
+      columns={getColumns(formType)}
+      container
+      spacing={2}
+    >
+      <Grid {...getGridMultiselect(formType)}>
+        <Multiselect
+          value={flight.from}
+          name="from"
+          label="From"
           onChange={handleChange}
-          upperLimit={flight.departure}
+          isSingle={formType === "Multi-city"}
         />
+      </Grid>
+      {formType === "One-way" || formType === "Round-trip" ? (
+        <Grid {...getGridSwap(formType)}>
+          <ChangeButton onClick={changeOriginDestiny} />
+        </Grid>
+      ) : null}
+      <Grid {...getGridMultiselect(formType)}>
+        <Multiselect
+          value={flight.to}
+          name="to"
+          label="To"
+          onChange={handleChange}
+          isSingle={formType === "Multi-city"}
+        />
+      </Grid>
+      <Grid {...getGridDate(formType)}>
+        <DatePicker
+          value={flight.departure}
+          name="departure"
+          label="Departure"
+          onChange={handleChange}
+        />
+      </Grid>
+      {formType === "Round-trip" && (
+        <Grid {...getGridDate(formType)}>
+          <DatePicker
+            value={flight.back}
+            name="back"
+            label="Return"
+            onChange={handleChange}
+            upperLimit={flight.departure}
+          />
+        </Grid>
       )}
       {formType === "Multi-city" && (
-        <SelectModality
-          isFormElement
-          options={economyOptions}
-          name="economy"
-          value={flight.economy}
-          onChange={handleChange}
-        />
+        <Grid {...getGridDate(formType)}>
+          <SelectModality
+            isFormElement
+            options={economyOptions}
+            name="economy"
+            value={flight.economy}
+            onChange={handleChange}
+          />
+        </Grid>
       )}
       {formType === "One-way" || formType === "Round-trip" ? (
-        <SearchButton onClick={submit} />
+        <Grid {...getGridSearch(formType)}>
+          <SearchButton isInsideFlightForm onClick={submit} />
+        </Grid>
       ) : null}
-      {formType === "Multi-city" && !hideCloseButton && (
-        <IconButton
-          aria-label="remove-travel"
-          size="large"
-          onClick={removeFlight}
-        >
-          <CloseIcon fontSize="inherit" htmlColor="#444444" />
-        </IconButton>
+      {formType === "Multi-city" && (
+        <Grid xs={28} sm={4} md={2}>
+          {!hideCloseButton ? (
+            <>
+              <IconButton
+                sx={{
+                  bgcolor: "#efefef",
+                  borderRadius: "10px",
+                  width: "100%",
+                }}
+                aria-label="remove-travel"
+                size="large"
+                onClick={removeFlight}
+              >
+                <CloseIcon fontSize="inherit" htmlColor="#444444" />
+              </IconButton>
+            </>
+          ) : (
+            <div style={{ padding: "20px" }} />
+          )}
+        </Grid>
       )}
-    </Box>
+    </GridMui>
   );
 };
 

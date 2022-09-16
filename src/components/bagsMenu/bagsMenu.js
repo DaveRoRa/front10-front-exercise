@@ -39,7 +39,7 @@ export default function BagsMenu({
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        sx={{ color: "black", width: "200px" }}
+        sx={{ color: "black", width: "100%", height: "50px" }}
         endIcon={<Arrow fontSize="large" />}
       >
         {`${value["Carry-on bag"] + value["Checked bag"]} bag(s)`}
@@ -53,21 +53,23 @@ export default function BagsMenu({
           "aria-labelledby": "bags-button",
         }}
       >
-        <Counter
-          name={"Carry-on bag"}
-          value={value["Carry-on bag"]}
-          onChange={handleChange}
-          maxDisabled={1}
-        />
-        <Counter
-          name={"Checked bag"}
-          value={value["Checked bag"]}
-          onChange={handleChange}
-          maxDisabled={2}
-        />
-        <Typography p={2} variant="body2" gutterBottom>
-          Baggage per passenger
-        </Typography>
+        <div>
+          <Counter
+            name={"Carry-on bag"}
+            value={value["Carry-on bag"]}
+            onChange={handleChange}
+            maxDisabled={1}
+          />
+          <Counter
+            name={"Checked bag"}
+            value={value["Checked bag"]}
+            onChange={handleChange}
+            maxDisabled={2}
+          />
+          <Typography p={2} variant="body2" gutterBottom>
+            Baggage per passenger
+          </Typography>
+        </div>
       </Menu>
     </div>
   );
